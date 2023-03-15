@@ -1,16 +1,11 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { LineNotifyService } from './linenotify.service';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-
+import { LineNotifyDto } from './linenotify.dto';
 @ApiTags('LineNotifications')
 @Controller('LineNotifications')
 export class LineNotificationController {
   constructor(private readonly lineNotifyService: LineNotifyService) {}
-
-  //   @Post('line-notify')
-  //   async sendLineNotifyNotification(@Body('message') message: string): Promise<void> {
-  //     await this.lineNotifyService.sendNotification(message);
-  //   }
 
   @Post('send-notify')
   @ApiBody({
@@ -21,12 +16,14 @@ export class LineNotificationController {
         summary: 'Example Body',
         description: 'Description for when an empty body is used',
         value: {
-          message: 'msg',
+          companyname: 'companyname',
+          soid: 'soid',
+          url: 'url',
         },
       },
     },
   })
-  async sendNotification(@Body('message') message: string): Promise<void>{
-    return await this.lineNotifyService.sendNotification(message);
+  async sendNotification(@Body() lineNotifyDto: LineNotifyDto): Promise<void>{
+    return await this.lineNotifyService.sendNotification(lineNotifyDto);
   }
 }

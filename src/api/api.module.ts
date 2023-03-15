@@ -3,7 +3,7 @@ import { Linenotify } from "./line-notify/linenotify.module";
 
 @Module({
     imports: [
-        Linenotify
+        Linenotify,
     ],
 })
 export class ApiModule {}
